@@ -254,3 +254,6 @@ paket-files/
 
 #ignore everything under lib as that should be added via npm
 src/PatientDataEntry/wwwroot/lib/
+
+#ignore everything under app as that should be copied from app
+src/PatientDataEntry/wwwroot/app/

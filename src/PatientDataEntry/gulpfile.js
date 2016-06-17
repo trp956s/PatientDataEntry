@@ -9,7 +9,8 @@ var gulp = require("gulp"),
     webroot = "./wwwroot/";
 
 var itemsToCopy = {
-    './node_modules/angular/angular*.js': webroot + 'lib'
+    './node_modules/angular/angular*.js': webroot + 'lib',
+    './app/*': webroot + 'app',
 };
 
 var paths = {
