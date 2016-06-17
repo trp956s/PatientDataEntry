@@ -251,3 +251,6 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+#ignore everything under lib as that should be added via npm
+src/PatientDataEntry/wwwroot/lib/
