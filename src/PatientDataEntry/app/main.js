@@ -20,10 +20,15 @@
             viewController.resetModel();
         };
 
+        viewController.onSsnChanged = function () {
+            alert();
+        };
+
         viewController.upload = function () {
             var uploadingModel = viewController.uploadModel();
             viewController.resetModel();
             viewController.patientList.push(uploadingModel);
+            viewController.checkForDuplicateSsns();
         };
 
         viewController.resetModel = function () {
@@ -41,6 +46,27 @@
             }, 5000);
 
             return uploadingModel;
+        }
+
+        viewController.checkForDuplicateSsns = function () {
+            for(var i = viewController.patientList.length - 1; i > 0; i--) {
+                var model = viewController.patientList[i];
+                if (!model.duplicateFound) {
+                    viewController.checkForDuplicateSsn(model);
+                }
+            }
+        }
+
+        viewController.checkForDuplicateSsn = function(model) {
+            for(var i = 0; i < viewController.patientList.length; i++) {
+                if (viewController.patientList[i] !== model && viewController.patientList[i].ssn == model.ssn) {
+                    model.message = 'error duplicate social security number!';
+                    model.ssn = '666-' + model.ssn.substring(4, model.ssn.length);
+                    model.duplicateFound = true;
+                    $scope.$applyAsync();
+                    break;
+                }
+            }
         }
 
         viewController.patientList = [];

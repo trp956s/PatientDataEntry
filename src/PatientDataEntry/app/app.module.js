@@ -6,6 +6,6 @@
     'use strict';
 
     //NOOB: registers the module with the Angular framework
-    angular.module('app', []);
+    angular.module('app', ['ngMask']);
 
 })();

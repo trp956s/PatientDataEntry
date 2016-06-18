@@ -8,10 +8,11 @@
 <body ng-controller="Main as vc">
     <form ng-submit="vc.onSave()">
         <!-- todo: submit form via ajax -->
-        <input type="text" ng-required="true" ng-model="vc.model.firstName" placeholder="First Name" />
+        <input type="text" ng-model="vc.model.firstName" placeholder="First Name" />
         <input type="text" ng-model="vc.model.lastName" placeholder="Last Name" />
-        <input type="text" ng-model="vc.model.ssn" placeholder="SSN" />
-        <input type="text" ng-model="vc.model.zip" placeholder="Zip Code" />
+        <input type="tel" ng-model="vc.model.ssn" mask="999-99-9999" validate="true" clean="false" pattern="^\d{3}-\d{2}-\d{4}$" required title="Please enter you social security number 999-99-9999"
+ placeholder="999-99-9999 Social Security Code"/>
+        <input type="number" ng-model="vc.model.zip" placeholder="Zip Code" />
         <input type="text" ng-model="vc.model.state" placeholder="State" />
 
         <button type="submit" id="submit" value="Submit">save</button>
@@ -38,8 +39,8 @@
 
     <!-- todo: load list from server -->
     <div ng-repeat="vmLi in vc.patientList">
-        <div ng-hide="vmLi.message && vmLi.message.length > 0 ? false : true"></div>
-        <div ng-hide="vmLi.firstName && vmLi.firstName.length > 0 ? false : true">
+        <div ng-hide="vmLi.message && vmLi.message.length > 0 ? false : true">{{vmLi.message}}</div>
+        <div>
             <!-- todo: 1. style for submitting and remove on submitted -->
             <div>
                 <span>{{vmLi.lastName}}, {{lvm.firstName}}</span>
@@ -53,8 +54,11 @@
     </div>
 
     <script src="lib/angular.min.js"></script>
+    <script src='lib/ngMask.min.js'></script>
+    <script src="lib/polyfiller.js"></script>
     <script src="app/app.module.js"></script>
     <script src="app/main.js"></script>
+    <script src="app/script.js"></script>
 
 </body>
 </html>
