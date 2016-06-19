@@ -6,10 +6,14 @@
         .controller('Main', main);
 
     function main($scope) {
-        var viewController = createviewController(this, $scope);
+        var viewController = createViewController(this, $scope);
     };
 
-    function createviewController(viewController, $scope) {
+    function createViewController(viewController, $scope) {
+        viewController.urlList = {
+            'getPatientList' : 'api/PatientData'
+        };
+        
         viewController.model = viewController.model ? viewController.model : initModel();
 
         viewController.onSave = function () {
@@ -27,8 +31,9 @@
         viewController.upload = function () {
             var uploadingModel = viewController.uploadModel();
             viewController.resetModel();
-            viewController.patientList.push(uploadingModel);
+            viewController.PatientList.push(uploadingModel);
             viewController.checkForDuplicateSsns();
+            $scope.$applyAsync();
         };
 
         viewController.resetModel = function () {
@@ -38,10 +43,10 @@
         viewController.uploadModel = function () {
             var json = JSON.stringify(viewController.model);
             var uploadingModel = JSON.parse(json);
-            uploadingModel.syncStatus = 'uploading';
+            uploadingModel.SyncStatus = 'uploading';
             //TODO: FTP            
             setTimeout(function () {
-                uploadingModel.syncStatus = 'upload successful';
+                uploadingModel.SyncStatus = 'upload successful';
                 $scope.$applyAsync();
             }, 5000);
 
@@ -49,34 +54,45 @@
         }
 
         viewController.checkForDuplicateSsns = function () {
-            for(var i = viewController.patientList.length - 1; i > 0; i--) {
-                var model = viewController.patientList[i];
-                if (!model.duplicateFound) {
+            for(var i = viewController.PatientList.length - 1; i > 0; i--) {
+                var model = viewController.PatientList[i];
+                if (!model.DuplicateFound) {
                     viewController.checkForDuplicateSsn(model);
                 }
             }
         }
 
         viewController.checkForDuplicateSsn = function(model) {
-            for(var i = 0; i < viewController.patientList.length; i++) {
-                if (viewController.patientList[i] !== model && viewController.patientList[i].ssn == model.ssn) {
-                    model.message = 'error duplicate social security number!';
-                    model.ssn = '666-' + model.ssn.substring(4, model.ssn.length);
-                    model.duplicateFound = true;
+            for(var i = 0; i < viewController.PatientList.length; i++) {
+                if (viewController.PatientList[i] !== model && viewController.PatientList[i].ssn == model.Ssn) {
+                    model.Message = 'error duplicate social security number!';
+                    model.Ssn = '666-' + model.Ssn.substring(4, model.Ssn.length);
+                    model.DuplicateFound = true;
                     $scope.$applyAsync();
                     break;
                 }
             }
         }
 
-        viewController.patientList = [];
+        viewController.loadPatientList = function () {
+            $.ajax({
+                url: viewController.urlList.getPatientList
+            }).done(viewController.setPatientList);
+        }
+
+        viewController.setPatientList = function (PatientListData) {
+            viewController.PatientList = PatientListData;
+            $scope.$applyAsync();
+        };
+
+        viewController.PatientList = viewController.loadPatientList();
 
         return viewController;
     };
 
     function initModel() {
         var model = {};
-        model.syncStatus = 'new';
+        model.SyncStatus = 'new';
         return model;
     }
 })();

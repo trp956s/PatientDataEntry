@@ -12,6 +12,7 @@
   "dependencies": {
     "angular": "1.5.7",
     "ng-mask-npm": "0.0.1",
-    "webshim": "1.15.10"
+    "webshim": "1.15.10",
+    "jquery": "3.0.0"
   }
 }

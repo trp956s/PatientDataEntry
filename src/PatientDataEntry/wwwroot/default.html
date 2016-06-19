@@ -8,12 +8,12 @@
 <body ng-controller="Main as vc">
     <form ng-submit="vc.onSave()">
         <!-- todo: submit form via ajax -->
-        <input type="text" ng-model="vc.model.firstName" placeholder="First Name" />
-        <input type="text" ng-model="vc.model.lastName" placeholder="Last Name" />
-        <input type="tel" ng-model="vc.model.ssn" mask="999-99-9999" validate="true" clean="false" pattern="^\d{3}-\d{2}-\d{4}$" required title="Please enter you social security number 999-99-9999"
+        <input type="text" ng-model="vc.model.FirstName" placeholder="First Name" />
+        <input type="text" ng-model="vc.model.LastName" placeholder="Last Name" />
+        <input type="tel" ng-model="vc.model.Ssn" mask="999-99-9999" validate="true" clean="false" pattern="^\d{3}-\d{2}-\d{4}$" required title="Please enter you social security number 999-99-9999"
  placeholder="999-99-9999 Social Security Code"/>
-        <input type="number" ng-model="vc.model.zip" placeholder="Zip Code" />
-        <input type="text" ng-model="vc.model.state" placeholder="State" />
+        <input type="number" ng-model="vc.model.Zip" placeholder="Zip Code" />
+        <input type="text" ng-model="vc.model.State" placeholder="State" />
 
         <button type="submit" id="submit" value="Submit">save</button>
         <button type="reset" ng-click="vc.onClear()">clear</button>
@@ -24,29 +24,29 @@
     <!-- todo: 1. show message on error 2. show message on uploading -->
     <!-- todo: replace first name with method to search for any field value -->
     <div>
-        <div ng-hide="vc.model.message && vc.model.message.length > 0 ? false : true"></div>
-        <div ng-hide="vc.model.firstName && vc.model.firstName.length > 0 ? false : true">
+        <div ng-hide="vc.model.Message && vc.model.Message.length > 0 ? false : true"></div>
+        <div ng-hide="vc.model.FirstName && vc.model.FirstName.length > 0 ? false : true">
             <!-- todo: 1. style for submitting and remove on submitted -->
             <div>
-                <span>{{vc.model.lastName}}, {{vc.model.firstName}}</span>
-                <span>{{vc.model.ssn}}</span>
-                <span>{{vc.model.zip}}, {{vc.model.state}}</span>
-                <span style="float: right;">{{vc.model.syncStatus}}</span>
+                <span>{{vc.model.LastName}}, {{vc.model.FirstName}}</span>
+                <span>{{vc.model.Ssn}}</span>
+                <span>{{vc.model.Zip}}, {{vc.model.State}}</span>
+                <span style="float: right;">{{vc.model.SyncStatus}}</span>
                 <!-- todo: 1. add edit button -->
             </div>
         </div>
     </div>
 
     <!-- todo: load list from server -->
-    <div ng-repeat="vmLi in vc.patientList">
-        <div ng-hide="vmLi.message && vmLi.message.length > 0 ? false : true">{{vmLi.message}}</div>
+    <div ng-repeat="vmLi in vc.PatientList">
+        <div ng-hide="vmLi.Message && vmLi.Message.length > 0 ? false : true">{{vmLi.Message}}</div>
         <div>
             <!-- todo: 1. style for submitting and remove on submitted -->
             <div>
-                <span>{{vmLi.lastName}}, {{lvm.firstName}}</span>
-                <span>{{vmLi.ssn}}</span>
-                <span>{{vmLi.zip}}, {{vmLi.state}}</span>
-                <span style="float: right;">{{vmLi.syncStatus}}</span>
+                <span>{{vmLi.LastName}}, {{vmLi.FirstName}}</span>
+                <span>{{vmLi.Ssn}}</span>
+                <span>{{vmLi.Zip}}, {{vmLi.State}}</span>
+                <span style="float: right;">{{vmLi.SyncStatus}}</span>
                 <!-- todo: 1. add edit button -->
                 <!-- todo: 1. add retry button for failed uploads -->
             </div>
@@ -56,6 +56,7 @@
     <script src="lib/angular.min.js"></script>
     <script src='lib/ngMask.min.js'></script>
     <script src="lib/polyfiller.js"></script>
+    <script src="lib/jquery.js"></script>
     <script src="app/app.module.js"></script>
     <script src="app/main.js"></script>
     <script src="app/script.js"></script>
