@@ -9,12 +9,7 @@ var gulp = require("gulp"),
     webroot = "./wwwroot/";
 
 var itemsToCopy = {
-    './node_modules/angular/angular*.js': webroot + 'lib',
-    './node_modules/ng-mask-npm/dist/*.js': webroot + 'lib',
-    './node_modules/webshim/js-webshim/minified/*.js': webroot + 'lib',
-    './node_modules/webshim/src/shims/styles/shim.css': webroot + 'lib/shims/styles/shim.css ',
-    './node_modules/webshim/src/shims/combos/1.js': webroot + 'lib/shims/combos/1.js ',
-    './node_modules/jquery/dist/jquery*.js': webroot + 'lib',
+    './node_modules/ng-mask-npm/dist/*.js': webroot + 'lib/ng-mask-npm/dist/',
     './node_modules/releases/': webroot + 'lib',
     './app/*': webroot + 'app',
 };

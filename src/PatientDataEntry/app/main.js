@@ -64,9 +64,10 @@
 
         viewController.checkForDuplicateSsn = function(model) {
             for(var i = 0; i < viewController.PatientList.length; i++) {
-                if (viewController.PatientList[i] !== model && viewController.PatientList[i].ssn == model.Ssn) {
-                    model.Message = 'error duplicate social security number!';
-                    model.Ssn = '666-' + model.Ssn.substring(4, model.Ssn.length);
+                if (viewController.PatientList[i] !== model && viewController.PatientList[i].Ssn == model.Ssn) {
+                    var ssn = model.Ssn ? model.Ssn : "";
+                    model.Message = 'Error! Duplicate social security number.  Replacing the first 3 characters with 666';
+                    model.Ssn = '666-' + ssn.substring(4, ssn.length);
                     model.DuplicateFound = true;
                     $scope.$applyAsync();
                     break;
@@ -82,6 +83,7 @@
 
         viewController.setPatientList = function (PatientListData) {
             viewController.PatientList = PatientListData;
+            viewController.checkForDuplicateSsns();
             $scope.$applyAsync();
         };
 

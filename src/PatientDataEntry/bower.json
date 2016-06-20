@@ -1,6 +1,8 @@
 {
 	"name": "asp.net",
 	"private": true,
-	"dependencies": {
-	}
+  "dependencies": {
+    "angular": "1.5.7",
+    "jquery": "3.0.0"
+  }
 }

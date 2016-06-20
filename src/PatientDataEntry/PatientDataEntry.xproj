@@ -7,7 +7,7 @@
 
   <Import Project="$(VSToolsPath)\DotNet\Microsoft.DotNet.Props" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup Label="Globals">
-    <ProjectGuid>8670369b-f520-4d86-a46d-f78c361b8d71</ProjectGuid>
+    <ProjectGuid>f0d5083a-7231-4542-ba90-91ef43146d57</ProjectGuid>
     <RootNamespace>PatientDataEntry</RootNamespace>
     <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">.\obj</BaseIntermediateOutputPath>
     <OutputPath Condition="'$(OutputPath)'=='' ">.\bin\</OutputPath>
