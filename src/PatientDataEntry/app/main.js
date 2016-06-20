@@ -11,7 +11,8 @@
 
     function createViewController(viewController, $scope) {
         viewController.urlList = {
-            'getPatientList' : 'api/PatientData'
+            'getPatientList': 'api/PatientData',
+            'addPatient': 'api/PatientData',
         };
         
         viewController.model = viewController.model ? viewController.model : initModel();
@@ -44,14 +45,29 @@
             var json = JSON.stringify(viewController.model);
             var uploadingModel = JSON.parse(json);
             uploadingModel.SyncStatus = 'uploading';
-            //TODO: FTP            
-            setTimeout(function () {
-                uploadingModel.SyncStatus = 'upload successful';
-                $scope.$applyAsync();
-            }, 5000);
+
+            $.ajax({
+                'type': 'POST',
+                'url': viewController.urlList.addPatient,
+                'data': json,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'html',
+            }).done(function (data) {
+                viewController.afterPatientUpload(uploadingModel, data);
+            });
 
             return uploadingModel;
-        }
+        };
+
+        viewController.afterPatientUpload = function (uploadingModel, data) {
+            try{
+                uploadingModel.SyncStatus = JSON.parse(data).ReasonPhrase;
+            } catch (exception) {
+                uploadingModel.SyncStatus = 'upload successful';
+            }
+            
+            $scope.$applyAsync();
+        };
 
         viewController.checkForDuplicateSsns = function () {
             for(var i = viewController.PatientList.length - 1; i > 0; i--) {

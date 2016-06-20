@@ -7,7 +7,6 @@
 <!-- todo: move styles to style sheet-->
 <body ng-controller="Main as vc">
     <form ng-submit="vc.onSave()">
-        <!-- todo: submit form via ajax -->
         <input type="text" ng-model="vc.model.FirstName" placeholder="First Name" />
         <input type="text" ng-model="vc.model.LastName" placeholder="Last Name" />
         <input type="tel" ng-model="vc.model.Ssn" mask="999-99-9999" validate="true" clean="false" pattern="^\d{3}-\d{2}-\d{4}$" required title="Please enter you social security number 999-99-9999"
@@ -19,14 +18,12 @@
         <button type="reset" ng-click="vc.onClear()">clear</button>
     </form>
 
-    <!-- todo: 1. make for each 2. make container view -->
-    <!-- todo: 1. check for given conditions-->
-    <!-- todo: 1. show message on error 2. show message on uploading -->
-    <!-- todo: replace first name with method to search for any field value -->
+    <!-- todo: make container view -->
+    <!-- todo: replace first name check with method to search for any field value -->
     <div>
         <div ng-hide="vc.model.Message && vc.model.Message.length > 0 ? false : true"></div>
         <div ng-hide="vc.model.FirstName && vc.model.FirstName.length > 0 ? false : true">
-            <!-- todo: 1. style for submitting and remove on submitted -->
+            <!-- todo: class/style for submitting and error and remove on submitted -->
             <div>
                 <span>{{vc.model.LastName}}, {{vc.model.FirstName}}</span>
                 <span>{{vc.model.Ssn}}</span>
@@ -37,11 +34,9 @@
         </div>
     </div>
 
-    <!-- todo: load list from server -->
     <div ng-repeat="vmLi in vc.PatientList">
         <div ng-hide="vmLi.Message && vmLi.Message.length > 0 ? false : true">{{vmLi.Message}}</div>
         <div>
-            <!-- todo: 1. style for submitting and remove on submitted -->
             <div>
                 <span>{{vmLi.LastName}}, {{vmLi.FirstName}}</span>
                 <span>{{vmLi.Ssn}}</span>
