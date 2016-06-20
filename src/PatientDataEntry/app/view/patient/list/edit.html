@@ -1,22 +1,20 @@
 ﻿<script src='lib/angular-ngMask/dist/ngMask.js'></script>
 
 <form ng-submit="vc.onSave()">
-    <input type="text" ng-model="vc.model.FirstName" placeholder="First Name" />
-    <input type="text" ng-model="vc.model.LastName" placeholder="Last Name" />
+    <input type="text" ng-model="vc.model.FirstName" required placeholder="First Name" />
+    <input type="text" ng-model="vc.model.LastName" required placeholder="Last Name" />
     <input type="tel" ng-model="vc.model.Ssn" mask="999-99-9999" validate="true" clean="false" pattern="^\d{3}-\d{2}-\d{4}$" required title="Please enter you social security number 999-99-9999"
            placeholder="999-99-9999 Social Security Code" />
-    <input type="number" ng-model="vc.model.Zip" placeholder="Zip Code" />
+    <input type="number" ng-model="vc.model.Zip" pattern="^\d{5}$" maxlength="5" required placeholder="Zip Code" />
     <input type="text" ng-model="vc.model.State" placeholder="State" />
 
     <button type="submit" id="submit" value="Submit">save</button>
     <button type="reset" ng-click="vc.onClear()">clear</button>
 </form>
 
-<!-- todo: make container view -->
-<!-- todo: replace first name check with method to search for any field value -->
 <div>
     <div ng-hide="vc.model.Message && vc.model.Message.length > 0 ? false : true"></div>
-    <div ng-hide="vc.model.FirstName && vc.model.FirstName.length > 0 ? false : true">
+    <div ng-hide="vc.model.DoesHaveValues ? false : true">
         <!-- todo: class/style for submitting and error and remove on submitted -->
         <div>
             <span>{{vc.model.LastName}}, {{vc.model.FirstName}}</span>

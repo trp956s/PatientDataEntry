@@ -31,8 +31,8 @@
             viewController.resetModel();
         };
 
-        viewController.onSsnChanged = function () {
-            alert();
+        viewController.onPropertyChanged = function (newVal) {
+            viewController.model.DoesHaveValues = viewController.doesHaveValues(viewController.model);
         };
 
         viewController.upload = function () {
@@ -114,6 +114,28 @@
         };
 
         viewController.PatientList = viewController.loadPatientList();
+
+        viewController.model.DoesHaveValues = false;
+
+        viewController.doesHaveValues = function (object) {
+            for (var key in object) {
+                if (object[key] instanceof Object) {
+                    if (viewController.doesHaveValues(object[key])) {
+                        return true;
+                    }
+                } else if (key && -1 == ['DoesHaveValues', 'SyncStatus', 'DuplicateFound', 'Message'].indexOf(key) && object[key]) {
+                    return true;
+                    $scope.$applyAsync();
+                }
+            }
+            return false;
+        };
+
+        $scope.$watch(function () { return viewController.model.FirstName; }, viewController.onPropertyChanged);
+        $scope.$watch(function () { return viewController.model.LastName; }, viewController.onPropertyChanged);
+        $scope.$watch(function () { return viewController.model.Ssn; }, viewController.onPropertyChanged);
+        $scope.$watch(function () { return viewController.model.Zip; }, viewController.onPropertyChanged);
+        $scope.$watch(function () { return viewController.model.State; }, viewController.onPropertyChanged);
 
         return viewController;
     };
