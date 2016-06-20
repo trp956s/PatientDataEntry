@@ -97,10 +97,14 @@
             }).done(viewController.setPatientList);
         }
 
-        viewController.setPatientList = function (PatientListData) {
-            viewController.PatientList = PatientListData;
+        viewController.setPatientList = function (patientListData) {
+            viewController.PatientList = patientListData;
             viewController.checkForDuplicateSsns();
             $scope.$applyAsync();
+            for (var i = 0; patientListData && i < patientListData.length; i++) {
+                patientListData[i].SyncStatus = 'Recieved from server';
+                $scope.$applyAsync();
+            }
         };
 
         viewController.PatientList = viewController.loadPatientList();

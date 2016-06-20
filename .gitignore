@@ -257,3 +257,6 @@ src/PatientDataEntry/wwwroot/lib/
 
 #ignore everything under app as that should be copied from app
 src/PatientDataEntry/wwwroot/app/
+
+#ignore the data file
+src/PatientDataEntry/allPatients.txt
