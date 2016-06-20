@@ -1,17 +1,19 @@
-﻿/// <binding BeforeBuild='copy, clean:js, clean:css, clean, min:css, min, min:js' Clean='clean, clean:css, clean:js' />
+﻿/// <binding BeforeBuild='copy, clean:js, clean:css, clean, min:css, min, min:js' Clean='clean, clean:css, clean:js' ProjectOpened='copy' />
 "use strict";
 
 var gulp = require("gulp"),
-    rimraf = require("rimraf"),
+    del = require("del"),
     concat = require("gulp-concat"),
     cssmin = require("gulp-cssmin"),
     uglify = require("gulp-uglify"),
     webroot = "./wwwroot/";
 
 var itemsToCopy = {
-    './node_modules/ng-mask-npm/dist/*.js': webroot + 'lib/ng-mask-npm/dist/',
-    './node_modules/releases/': webroot + 'lib',
-    './app/*': webroot + 'app',
+    './bower_components/angular/*.js': webroot + 'lib/angular',
+    './bower_components/angular-ngMask/dist/*.js': webroot + 'lib/angular-ngMask/dist',
+    './bower_components/jquery/dist/*.js': webroot + 'lib/jquery/dist',
+    './node_modules/ng-mask-npm/dist/*.js': webroot + 'lib/ng-mask-npm/dist',
+    './app/**/*': webroot + 'app',
 };
 
 var paths = {
@@ -20,18 +22,34 @@ var paths = {
     css: webroot + "css/**/*.css",
     minCss: webroot + "css/**/*.min.css",
     concatJsDest: webroot + "js/site.min.js",
-    concatCssDest: webroot + "css/site.min.css"
+    concatCssDest: webroot + "css/site.min.css",
+    concatLibDest: webroot + "lib/*",
+    concatAppDest: webroot + "app/*",
+    concatBowerDest: "bower_components",
+    concatNpmDest: "node_modules"
 };
 
 gulp.task("clean:js", function (cb) {
-    rimraf(paths.concatJsDest, cb);
+    del(paths.concatJsDest, cb);
 });
 
 gulp.task("clean:css", function (cb) {
-    rimraf(paths.concatCssDest, cb);
+    del(paths.concatCssDest, cb);
 });
 
-gulp.task("clean", ["clean:js", "clean:css"]);
+gulp.task("clean:lib", function (cb) {
+    del(paths.concatLibDest, cb);
+});
+
+gulp.task("clean:app", function (cb) {
+    del(paths.concatAppDest, cb);
+});
+
+gulp.task("clean:dependencies", function (cb) {
+    del([paths.concatBowerDest, paths.concatNpmDest], cb);
+});
+
+gulp.task("clean", ["clean:js", "clean:css", "clean:lib", "clean:app"]);
 
 gulp.task("min:js", function () {
     return gulp.src([paths.js, "!" + paths.minJs], { base: "." })
@@ -49,11 +67,10 @@ gulp.task("min:css", function () {
 
 gulp.task("min", ["min:js", "min:css"]);
 
-gulp.task('copy', function () {
+gulp.task('copy:lib_and_app', function (callback) {
     for (var src in itemsToCopy) {
         if (!itemsToCopy.hasOwnProperty(src)) continue;
         gulp.src(src)
         .pipe(gulp.dest(itemsToCopy[src]));
     }
 });
-

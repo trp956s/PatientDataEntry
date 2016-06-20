@@ -43,6 +43,10 @@
     "include": [
       "wwwroot",
       "web.config"
+    ],
+    "exclude": [
+      "node_modules",
+      "bower_components"
     ]
   },
 

@@ -5,51 +5,14 @@
     <title></title>
 </head>
 <!-- todo: move styles to style sheet-->
-<body ng-controller="Main as vc">
-    <form ng-submit="vc.onSave()">
-        <input type="text" ng-model="vc.model.FirstName" placeholder="First Name" />
-        <input type="text" ng-model="vc.model.LastName" placeholder="Last Name" />
-        <input type="tel" ng-model="vc.model.Ssn" mask="999-99-9999" validate="true" clean="false" pattern="^\d{3}-\d{2}-\d{4}$" required title="Please enter you social security number 999-99-9999"
- placeholder="999-99-9999 Social Security Code"/>
-        <input type="number" ng-model="vc.model.Zip" placeholder="Zip Code" />
-        <input type="text" ng-model="vc.model.State" placeholder="State" />
-
-        <button type="submit" id="submit" value="Submit">save</button>
-        <button type="reset" ng-click="vc.onClear()">clear</button>
-    </form>
-
-    <!-- todo: make container view -->
-    <!-- todo: replace first name check with method to search for any field value -->
-    <div>
-        <div ng-hide="vc.model.Message && vc.model.Message.length > 0 ? false : true"></div>
-        <div ng-hide="vc.model.FirstName && vc.model.FirstName.length > 0 ? false : true">
-            <!-- todo: class/style for submitting and error and remove on submitted -->
-            <div>
-                <span>{{vc.model.LastName}}, {{vc.model.FirstName}}</span>
-                <span>{{vc.model.Ssn}}</span>
-                <span>{{vc.model.Zip}}, {{vc.model.State}}</span>
-                <span style="float: right;">{{vc.model.SyncStatus}}</span>
-                <!-- todo: 1. add edit button -->
-            </div>
-        </div>
-    </div>
-
-    <div ng-repeat="vmLi in vc.PatientList">
-        <div ng-hide="vmLi.Message && vmLi.Message.length > 0 ? false : true">{{vmLi.Message}}</div>
-        <div>
-            <div>
-                <span>{{vmLi.LastName}}, {{vmLi.FirstName}}</span>
-                <span>{{vmLi.Ssn}}</span>
-                <span>{{vmLi.Zip}}, {{vmLi.State}}</span>
-                <span style="float: right;">{{vmLi.SyncStatus}}</span>
-                <!-- todo: 1. add edit button -->
-                <!-- todo: 1. add retry button for failed uploads -->
-            </div>
+<body>
+    <div ng-controller="Main as vc">
+        <div main>
         </div>
     </div>
 
     <script src="lib/angular/angular.min.js"></script>
-    <script src='lib/ng-mask-npm/dist/ngMask.min.js'></script>
+    <script src="lib/angular-ngMask/dist/ngMask.js"></script>
     <script src="lib/jquery/dist/jquery.js"></script>
     <script src="app/app.module.js"></script>
     <script src="app/main.js"></script>

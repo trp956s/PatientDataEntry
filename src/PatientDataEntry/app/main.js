@@ -2,8 +2,14 @@
     'use strict';
 
     angular
-        .module('app')
-        .controller('Main', main);
+        .module('app', ['ngMask'])
+        .controller('Main', ['$scope', main])
+        .directive('main', function () {
+            return {
+                templateUrl: 'app/view/patient/list/edit.html'
+            };
+        })
+    ;
 
     function main($scope) {
         var viewController = createViewController(this, $scope);

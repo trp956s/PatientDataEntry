@@ -260,3 +260,6 @@ src/PatientDataEntry/wwwroot/app/
 
 #ignore the data file
 src/PatientDataEntry/allPatients.txt
+
+#ignore bower_components
+src/PatientDataEntry/bower_components/
