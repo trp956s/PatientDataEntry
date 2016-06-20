@@ -8,35 +8,10 @@ namespace PatientDataEntry.DataAccess
 {
     public class PatientDataAccess
     {
-        private static List<Patient> PatientData =
-            new List<Patient>(new Patient[]{
-                new Patient() {
-                    FirstName = "Tom",
-                    LastName = "Pepe",
-                    Ssn="111-11-1111",
-                },
-                new Patient() {
-                    FirstName = "Holly",
-                    LastName = "Pepe",
-                    Ssn="111-11-1111",
-                },
-                new Patient() {
-                    FirstName = "Grayson",
-                    LastName = "Pepe",
-                    State="Missouri"
-                },
-                new Patient() {
-                    FirstName = "Merissa",
-                    LastName = "Pepe",
-                    Zip="65802"
-                },
-            });
-
         private string patientFile = "allPatients.txt";
 
         public void addPatient(Patient patient)
         {
-            PatientData.Add(patient);
             using (var sw = System.IO.File.AppendText(this.patientFile))
             {
                 var searializer = JsonSerializer.Create();
