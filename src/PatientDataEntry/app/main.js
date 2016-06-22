@@ -3,15 +3,14 @@
 
     angular
         .module('app', ['ngMask'])
-        .controller('Main', ['$scope', main])
-        .directive('main', function () {
-            return {
-                templateUrl: 'app/view/patient/list/edit.html'
-            };
+        .component('main', {
+            templateUrl: 'app/view/hello.html',
+            controllerAs: 'vc',
+            bindings: {name: '@'}
         })
     ;
 
-    function main($scope) {
+    function createMainController($scope) {
         var viewController = createViewController(this, $scope);
     };
 
@@ -24,6 +23,7 @@
         viewController.model = viewController.model ? viewController.model : initModel();
 
         viewController.onSave = function () {
+            debugger;
             viewController.upload();
         };
 

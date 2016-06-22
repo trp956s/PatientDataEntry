@@ -1,4 +1,4 @@
-﻿/// <binding BeforeBuild='copy, clean:js, clean:css, clean, min:css, min, min:js' Clean='clean, clean:css, clean:js' ProjectOpened='copy' />
+﻿/// <binding BeforeBuild='clean:js, clean:css, clean, min:css, min, min:js, copy:lib_and_app, clean:lib' Clean='clean, clean:css, clean:js, clean:dependencies, clean:lib' />
 "use strict";
 
 var gulp = require("gulp"),
