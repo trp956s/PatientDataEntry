@@ -34,7 +34,6 @@ namespace PatientDataEntry.DataAccess
                         if (string.IsNullOrEmpty(line) == false)
                         {
                             var patient = JsonConvert.DeserializeObject<Patient>(line);
-                            patient.FirstName = "";
                             patients.Add(patient);
                         }
                     }
