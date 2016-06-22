@@ -5,8 +5,8 @@
         .module('app', ['ngMask'])
         .component('main', {
             templateUrl: 'app/view/hello.html',
+            controller: createMainController,
             controllerAs: 'vc',
-            bindings: {name: '@'}
         })
     ;
 
@@ -19,16 +19,13 @@
             'getPatientList': 'api/PatientData',
             'addPatient': 'api/PatientData',
         };
-        
+
         viewController.model = viewController.model ? viewController.model : initModel();
 
         viewController.onSave = function () {
-            debugger;
-            viewController.upload();
-        };
-
-        viewController.onClear = function () {
-            viewController.resetModel();
+            if ($scope.patientEntryForm.$valid) {
+                viewController.upload();
+            }
         };
 
         viewController.onPropertyChanged = function (newVal) {
@@ -37,14 +34,14 @@
 
         viewController.upload = function () {
             var uploadingModel = viewController.uploadModel();
-            viewController.resetModel();
-            viewController.PatientList.push(uploadingModel);
-            viewController.checkForDuplicateSsns();
-            $scope.$applyAsync();
-        };
 
-        viewController.resetModel = function () {
-            viewController.model = initModel();
+            window.setTimeout(function () {
+                viewController.model = initModel();
+                viewController.PatientList.unshift(uploadingModel);
+                viewController.checkForDuplicateSsns();
+                $scope.patientEntryForm.$setPristine();
+                $scope.patientEntryForm.$setUntouched();
+            }, 10);
         };
 
         viewController.uploadModel = function () {
@@ -108,7 +105,7 @@
             viewController.checkForDuplicateSsns();
             $scope.$applyAsync();
             for (var i = 0; patientListData && i < patientListData.length; i++) {
-                patientListData[i].SyncStatus = 'Recieved from server';
+                patientListData[i].SyncStatus = 'Patient ' + patientListData[i].Ssn + ' recieved from server';
                 $scope.$applyAsync();
             }
         };
@@ -143,6 +140,7 @@
     function initModel() {
         var model = {};
         model.SyncStatus = 'new';
+        
         return model;
     }
 })();
