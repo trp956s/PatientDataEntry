@@ -1,15 +1,16 @@
 ﻿<script src='lib/angular-ngMask/dist/ngMask.js'></script>
 
-<form ng-submit="vc.onSave()">
-    <input type="text" ng-model="vc.model.FirstName" required placeholder="First Name" />
-    <input type="text" ng-model="vc.model.LastName" required placeholder="Last Name" />
-    <input type="tel" ng-model="vc.model.Ssn" mask="999-99-9999" validate="true" clean="false" pattern="^\d{3}-\d{2}-\d{4}$" required title="Please enter you social security number 999-99-9999"
+<!-- todo impliment angular form validation -->
+<form name="patientEntryForm">
+    <input type="text" name="firstName" ng-model="vc.model.FirstName" required placeholder="First Name" />
+    <input type="text" name="lastName" ng-model="vc.model.LastName" required placeholder="Last Name" />
+    <input type="text" name="Ssn" ng-model="vc.model.Ssn" mask="999-99-9999" validate="true" clean="false" pattern="^\d{3}-\d{2}-\d{4}$" required title="Social security number 999-99-9999"
            placeholder="999-99-9999 Social Security Code" />
-    <input type="number" ng-model="vc.model.Zip" pattern="^\d{5}$" maxlength="5" required placeholder="Zip Code" />
-    <input type="text" ng-model="vc.model.State" placeholder="State" />
+    <input type="text" name="zip" ng-model="vc.model.Zip" mask="99999" validate="true" clean="false" pattern="^\d{5}$" required placeholder="5 digit zip code" />
+    <input type="text" name="state" ng-model="vc.model.State" placeholder="State" />
 
-    <button type="submit" id="submit" value="Submit">save</button>
-    <button type="reset" ng-click="vc.onClear()">clear</button>
+    <button type="submit" ng-click="vc.onSave()" id="submit" value="Submit">save</button>
+    <button type="reset">clear</button>
 </form>
 
 <div>
