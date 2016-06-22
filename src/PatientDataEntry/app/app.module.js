@@ -7,5 +7,4 @@
 
     //NOOB: registers the module with the Angular framework
     angular.module('app', ['ngMask']);
-
 })();
