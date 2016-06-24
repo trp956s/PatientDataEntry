@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -31,7 +34,15 @@ namespace PatientDataEntry
         {
             app.UseDefaultFiles();
             app.UseStaticFiles();
-            app.UseMvc();
+            app.UseMvc(this.ConfigureRoutes);
+        }
+
+        private void ConfigureRoutes(IRouteBuilder routes)
+        {
+            routes.MapRoute(
+                name: "spa-fallback",
+                template: "{*url}",
+                defaults: new { controller = "Home", action = "Index" });
         }
     }
 }

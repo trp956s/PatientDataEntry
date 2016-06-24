@@ -7,7 +7,7 @@
           template: '<h2>Crisis Center</h2><ng-outlet></ng-outlet>',
           $routeConfig: [
             { path: '/', name: 'CrisisList', component: 'crisisList', useAsDefault: true },
-            { path: '?:id', name: 'CrisisDetail', component: 'crisisDetail' }
+            { path: '/:id', name: 'CrisisDetail', component: 'crisisDetail' }
           ]
       })
 

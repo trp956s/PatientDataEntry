@@ -20,8 +20,8 @@
           '</nav>\n' +
           '<ng-outlet></ng-outlet>\n',
         $routeConfig: [
-          { path: 'crisis-center/...', name: 'CrisisCenter', component: 'crisisCenter', useAsDefault: true },
-          { path: 'heroes/...', name: 'Heroes', component: 'heroes' }
+          { path: '/crisis-center/...', name: 'CrisisCenter', component: 'crisisCenter', useAsDefault: true },
+          { path: '/heroes/...', name: 'Heroes', component: 'heroes' }
         ]
     });
 })(window.angular);
