@@ -1,4 +1,4 @@
-﻿/// <binding BeforeBuild='clean:js, clean:css, clean, min:css, min, min:js, copy:lib_and_app, clean:lib' Clean='clean, clean:css, clean:js, clean:dependencies, clean:lib' />
+﻿/// <binding Clean='clean, clean:css, clean:js, clean:dependencies, clean:lib' />
 "use strict";
 
 var gulp = require("gulp"),
@@ -12,7 +12,7 @@ var itemsToCopy = {
     './bower_components/angular/*.js': webroot + 'lib/angular',
     './bower_components/angular-ngMask/dist/*.js': webroot + 'lib/angular-ngMask/dist',
     './bower_components/jquery/dist/*.js': webroot + 'lib/jquery/dist',
-    './node_modules/ng-mask-npm/dist/*.js': webroot + 'lib/ng-mask-npm/dist',
+    './node_modules/@angular/router/angular1/*.js': webroot + 'lib/@angular/router/angular1',
     './app/**/*': webroot + 'app',
 };
 

@@ -10,6 +10,6 @@
     "del": "2.2.0"
   },
   "dependencies": {
-    "angular-ui-mask": "1.8.5"
+    "@angular/router": "0.2.0"
   }
 }
