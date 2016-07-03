@@ -2,8 +2,17 @@
     'use strict';
 
     angular
-        .module('app', ['ngMask'])
-        .component('main', {
+        .module('app', [
+            'ngComponentRouter',
+            'ngMask'
+        ])
+        .config(function ($locationProvider) {
+            $locationProvider.html5Mode(true);
+        })
+
+        .value('$routerRootComponent', 'app')
+
+        .component('app', {
             templateUrl: 'app/view/patient/list/edit.html',
             controller: createMainController,
             controllerAs: 'vc',
