@@ -1,21 +1,25 @@
 ﻿(function () {
     'use strict';
-
+    
     angular
-        .module('patientDataEntryForm', ['ngRoute', 'ngMask'])
-        .component('patientDataEntryForm', {
-            selector: 'patientDataEntryForm',
-            template: 'app/view/patient/list/edit.html',
-            controller: ['$routeParams', createPatientDataController],
+        .module('patientDataEntryForm', [
+            'ngComponentRouter',
+            'ngMask'
+        ])
+        .component('patientDataEdit', {
+            selector: 'patientDataEdit',
+            templateUrl: 'app/view/patient/list/edit.html',
+            controller: ['$scope', createPatientDataController],
             controllerAs: 'vc',
         })
     ;
 
-    function createPatientDataController($scope) {
-        var viewController = createPatientDataViewController(this, $scope);
+    function createPatientDataController(scope) {
+        var viewController = createPatientDataViewController(this, scope);
+	return viewController;
     };
 
-    function createPatientDataViewController(viewController, $scope) {
+    function createPatientDataViewController(viewController, scope) {
         viewController.urlList = {
             'getPatientList': 'api/PatientData',
             'addPatient': 'api/PatientData',
@@ -24,7 +28,7 @@
         viewController.model = viewController.model ? viewController.model : initModel();
 
         viewController.onSave = function () {
-            if ($scope.patientEntryForm.$valid) {
+            if (scope.patientEntryForm.$valid) {
                 viewController.upload();
             }
         };
@@ -40,8 +44,8 @@
                 viewController.model = initModel();
                 viewController.PatientList.unshift(uploadingModel);
                 viewController.checkForDuplicateSsns();
-                $scope.patientEntryForm.$setPristine();
-                $scope.patientEntryForm.$setUntouched();
+                scope.patientEntryForm.$setPristine();
+                scope.patientEntryForm.$setUntouched();
             }, 10);
         };
 
@@ -70,7 +74,7 @@
                 uploadingModel.SyncStatus = 'upload successful';
             }
             
-            $scope.$applyAsync();
+            scope.$applyAsync();
         };
 
         viewController.checkForDuplicateSsns = function () {
@@ -89,7 +93,7 @@
                     model.Message = 'Error! Duplicate social security number.  Replacing the first 3 characters with 666';
                     model.Ssn = '666-' + ssn.substring(4, ssn.length);
                     model.DuplicateFound = true;
-                    $scope.$applyAsync();
+                    scope.$applyAsync();
                     break;
                 }
             }
@@ -104,10 +108,10 @@
         viewController.setPatientList = function (patientListData) {
             viewController.PatientList = patientListData;
             viewController.checkForDuplicateSsns();
-            $scope.$applyAsync();
+            scope.$applyAsync();
             for (var i = 0; patientListData && i < patientListData.length; i++) {
                 patientListData[i].SyncStatus = 'Patient ' + patientListData[i].Ssn + ' recieved from server';
-                $scope.$applyAsync();
+                scope.$applyAsync();
             }
         };
 
@@ -123,17 +127,17 @@
                     }
                 } else if (key && -1 == ['DoesHaveValues', 'SyncStatus', 'DuplicateFound', 'Message'].indexOf(key) && object[key]) {
                     return true;
-                    $scope.$applyAsync();
+                    scope.$applyAsync();
                 }
             }
             return false;
         };
 
-        $scope.$watch(function () { return viewController.model.FirstName; }, viewController.onPropertyChanged);
-        $scope.$watch(function () { return viewController.model.LastName; }, viewController.onPropertyChanged);
-        $scope.$watch(function () { return viewController.model.Ssn; }, viewController.onPropertyChanged);
-        $scope.$watch(function () { return viewController.model.Zip; }, viewController.onPropertyChanged);
-        $scope.$watch(function () { return viewController.model.State; }, viewController.onPropertyChanged);
+        scope.$watch(function () { return viewController.model.FirstName; }, viewController.onPropertyChanged);
+        scope.$watch(function () { return viewController.model.LastName; }, viewController.onPropertyChanged);
+        scope.$watch(function () { return viewController.model.Ssn; }, viewController.onPropertyChanged);
+        scope.$watch(function () { return viewController.model.Zip; }, viewController.onPropertyChanged);
+        scope.$watch(function () { return viewController.model.State; }, viewController.onPropertyChanged);
 
         return viewController;
     };
