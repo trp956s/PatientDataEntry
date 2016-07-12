@@ -4,7 +4,9 @@
     angular
         .module('app', [
             'ngComponentRouter',
-            'patientDataEntryForm',
+            'patientList',
+            'patientListEdit',
+            'patientListShow',
             'ngMask'
         ])
         .config(function ($locationProvider) {

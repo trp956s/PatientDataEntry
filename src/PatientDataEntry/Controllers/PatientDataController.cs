@@ -25,6 +25,7 @@ namespace PatientDataEntry.Controllers
         public HttpResponseMessage Post([FromBody]Patient patient)
         {
             pda.addPatient(patient);
+
             return new HttpResponseMessage() { StatusCode = HttpStatusCode.Accepted, ReasonPhrase = string.Format("Patient {0} on server", patient.Ssn) };
         }
     }
